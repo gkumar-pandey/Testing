@@ -111,4 +111,39 @@ describe("Reduce", () => {
       }).toThrow();
     });
   });
+  describe("grouptByProperty", () => {
+    const students = [
+      { name: "Alice", age: 25 },
+      { name: "Bob", age: 30 },
+      { name: "Carol", age: 25 },
+    ];
+    it("Group objects by an existing property", () => {
+      const property = "age";
+      const output = {
+        25: [
+          { name: "Alice", age: 25 },
+          { name: "Carol", age: 25 },
+        ],
+        30: [{ name: "Bob", age: 30 }],
+      };
+      expect(groupByProperty(students, property)).toEqual(output);
+    });
+    it("Group objects by an empty property", () => {
+      const property = "";
+      const output = {
+        undefined: [
+          { name: "Alice", age: 25 },
+          { name: "Bob", age: 30 },
+          { name: "Carol", age: 25 },
+        ],
+      };
+      expect(groupByProperty(students, property)).toEqual(output);
+    });
+    it("should group objects with no objects ", () => {
+      const arr = [];
+      const property = "age";
+      const output = {};
+      expect(groupByProperty(arr, property)).toEqual(output);
+    });
+  });
 });
